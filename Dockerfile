@@ -5,7 +5,10 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     sqlite3 \
-    libsqlite3-dev
+    libsqlite3-dev \
+    libzip-dev
+
+RUN docker-php-ext-install pdo pdo_sqlite zip
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -13,7 +16,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN composer install
+RUN composer install --no-dev --optimize-autoloader
 
 RUN touch database/database.sqlite
 
