@@ -31,6 +31,8 @@ RUN composer install --ignore-platform-reqs
 
 RUN touch database/database.sqlite
 
+RUN php artisan migrate --force
+
 ENV APP_ENV=production
 ENV DB_CONNECTION=sqlite
 
